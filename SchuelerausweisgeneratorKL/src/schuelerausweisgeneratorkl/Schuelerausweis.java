@@ -38,9 +38,8 @@ public class Schuelerausweis {
         this.schuelerausweisXML = schuelerausweisXML;
     }
 
-    public Schuelerausweis(Schueler schueler, Atiw datenAtiw, String schuelerausweisXML) {
+    public Schuelerausweis(Schueler schueler,  String schuelerausweisXML) {
         this.schueler = schueler;
-        this.datenAtiw = datenAtiw;
         this.schuelerausweisXML = schuelerausweisXML;
         this.erstelleSchuelerausweis();
     }

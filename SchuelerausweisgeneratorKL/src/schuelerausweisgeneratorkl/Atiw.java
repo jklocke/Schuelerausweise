@@ -5,7 +5,7 @@
  */
 package schuelerausweisgeneratorkl;
 
-import java.sql.Blob;
+//import java.sql.Blob;
 
 /**
  *
@@ -17,20 +17,29 @@ public class Atiw {
     private String strasse;
     private String plz;
     private String ort;
-    private Blob bild;
+    //private Blob bild;
 
-    public Atiw(String nameKurz, String nameLang, String strasse, String plz, String ort, Blob bild) {
+    public Atiw(String nameKurz, String nameLang, String strasse, String plz, String ort) {
         this.nameKurz = nameKurz;
         this.nameLang = nameLang;
         this.strasse = strasse;
         this.plz = plz;
         this.ort = ort;
-        this.bild = bild;
+       // this.bild = bild;
+    }
+    
+    public Atiw(){
+        this.nameKurz = "ATIW";
+        this.nameLang = "Ausbildungszentrum für Technik, Informationsverarbeitung und Wirtschaft gemeinnützige GmbH Staatlich genehmigtes Berufskolleg";
+        this.strasse = "Riemekestraße 160";
+        this.plz = "33106";
+        this.ort = "Paderborn";
+       // this.bild = 
     }
 
     @Override
     public String toString() {
-        return "Atiw{" + "nameKurz=" + nameKurz + ", nameLang=" + nameLang + ", strasse=" + strasse + ", plz=" + plz + ", ort=" + ort + ", bild=" + bild + '}';
+        return "Atiw{" + "nameKurz=" + nameKurz + ", nameLang=" + nameLang + ", strasse=" + strasse + ", plz=" + plz + ", ort=" + ort +  '}';
     }
     
 
@@ -74,12 +83,12 @@ public class Atiw {
         this.ort = ort;
     }
 
-    public Blob getBild() {
-        return bild;
-    }
-
-    public void setBild(Blob bild) {
-        this.bild = bild;
-    }
+//    public Blob getBild() {
+//        return bild;
+//    }
+//
+//    public void setBild(Blob bild) {
+//        this.bild = bild;
+//    }
     
 }
