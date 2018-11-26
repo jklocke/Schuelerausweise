@@ -73,10 +73,10 @@ public class DB_Verbindung {
         return klassennamen;
     }
     
-    public ArrayList<Schueler> getSchueler(){
+    public ArrayList<Schueler> getSchueler(String Klasse){
         ArrayList<Schueler> schueler = new ArrayList<>();
         try{
-            String query = "SELECT  FROM schueler";
+            String query = "SELECT Vorname, Name, Klasse, Geburtsdatum, Strasse, PLZ, OrtAbk, AbschlussDatum FROM schueler WHERE Klasse = ?";
             Statement stmt = datenbankverbindung.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
