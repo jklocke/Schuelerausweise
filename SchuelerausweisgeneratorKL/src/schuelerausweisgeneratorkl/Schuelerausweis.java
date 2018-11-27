@@ -50,6 +50,6 @@ public class Schuelerausweis {
     }
     
     private void erstelleSchuelerausweis(){
-        
+        //Schülerausweis erstellen
     }
 }
