@@ -6,7 +6,7 @@
 package schuelerausweisgeneratorkl;
 
 /**
- *
+ * @titel Diese Klasse wird zur Erstellung eines Schülerausweises, eines Schülers verwendet.
  * @author jonas.klocke
  */
 public class Schuelerausweis {
