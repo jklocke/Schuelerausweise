@@ -29,7 +29,7 @@
             </Label>
             <ImageView fx:id="imageAtiw" fitHeight="42.0" fitWidth="100.0" layoutX="659.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Pictures/atiw-bk_150x60.png" />
+                  <Image url="@./atiw-bk_150x60.png" />
                </image>
             </ImageView>
             <ComboBox fx:id="cbKlasse" layoutX="14.0" layoutY="55.0" promptText="Klasse">
@@ -44,7 +44,7 @@
    <center>
       <ImageView fx:id="ivSchuelerausweis" fitHeight="296.0" fitWidth="488.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
          <image>
-            <Image url="@../../../../../../Pictures/atiw-bk_150x60.png" />
+            <Image url="@./Schuelerausweisdesign.png" />
          </image></ImageView>
    </center>
    <bottom>
