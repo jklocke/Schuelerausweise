@@ -9,7 +9,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -27,7 +26,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ImageView fx:id="imageAtiw" fitHeight="42.0" fitWidth="100.0" layoutX="659.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imageAtiw" fitHeight="42.0" fitWidth="100.0" layoutX="659.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="14.0">
                <image>
                   <Image url="@./atiw-bk_150x60.png" />
                </image>
@@ -47,24 +46,18 @@
             <Image url="@./Schuelerausweisdesign.png" />
          </image></ImageView>
    </center>
-   <bottom>
-      <HBox prefHeight="30.0" prefWidth="622.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="btnLinks" mnemonicParsing="false" text="&lt;">
-               <HBox.margin>
-                  <Insets left="300.0" />
-               </HBox.margin></Button>
-            <Button fx:id="btnRechts" mnemonicParsing="false" text="&gt;">
-               <HBox.margin>
-                  <Insets left="50.0" />
-               </HBox.margin></Button>
-         </children>
-      </HBox>
-   </bottom>
    <right>
       <VBox prefHeight="320.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
    </right>
    <left>
       <ListView fx:id="lvSchueler" prefHeight="298.0" prefWidth="189.0" BorderPane.alignment="CENTER" />
    </left>
+   <bottom>
+      <AnchorPane prefHeight="47.0" prefWidth="773.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnLinks" disable="true" layoutX="374.0" layoutY="21.0" mnemonicParsing="false" text="&lt;" AnchorPane.leftAnchor="374.0" AnchorPane.rightAnchor="374.0" />
+            <Button fx:id="btnRechts" layoutX="374.0" layoutY="-4.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="25.0" text="&gt;" AnchorPane.leftAnchor="374.0" AnchorPane.rightAnchor="374.0" />
+         </children>
+      </AnchorPane>
+   </bottom>
 </BorderPane>
