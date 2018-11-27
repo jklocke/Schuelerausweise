@@ -1,14 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schuelerausweisgeneratorkl.FXMLDocumentController">
-    <children>
-        <Button layoutX="126" layoutY="90" text="Click Me!" onAction="#handleButtonAction" fx:id="button" />
-        <Label layoutX="126" layoutY="120" minHeight="16" minWidth="69" fx:id="label" />
-    </children>
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="773.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <AnchorPane prefHeight="94.0" prefWidth="806.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnPDF" alignment="CENTER" layoutX="127.0" layoutY="54.0" mnemonicParsing="false" text="PDF speichern" textAlignment="CENTER">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+            <Label fx:id="lblKopf" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="215.0" text="Schülerauswahloberfläche">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="imageAtiw" fitHeight="42.0" fitWidth="100.0" layoutX="659.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../Pictures/atiw-bk_150x60.png" />
+               </image>
+            </ImageView>
+            <ComboBox fx:id="cbKlasse" layoutX="14.0" layoutY="55.0" promptText="Klasse">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </ComboBox>
+            <Button fx:id="btnImp" alignment="CENTER" layoutX="251.0" layoutY="54.0" mnemonicParsing="false" text="Impressum" />
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <ImageView fx:id="ivSchuelerausweis" fitHeight="296.0" fitWidth="488.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@../../../../../../Pictures/atiw-bk_150x60.png" />
+         </image></ImageView>
+   </center>
+   <bottom>
+      <HBox prefHeight="30.0" prefWidth="622.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnLinks" mnemonicParsing="false" text="&lt;">
+               <HBox.margin>
+                  <Insets left="300.0" />
+               </HBox.margin></Button>
+            <Button fx:id="btnRechts" mnemonicParsing="false" text="&gt;">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin></Button>
+         </children>
+      </HBox>
+   </bottom>
+   <right>
+      <VBox prefHeight="320.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+   </right>
+   <left>
+      <ListView fx:id="lvSchueler" prefHeight="298.0" prefWidth="189.0" BorderPane.alignment="CENTER" />
+   </left>
+</BorderPane>
