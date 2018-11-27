@@ -21,7 +21,7 @@ public class DB_Verbindung {
     Connection datenbankverbindung;
     String connectURL;
 
-    public DB_Verbindung(String user, String passwort, String connectURL) {
+    public DB_Verbindung(String connectURL, String user, String passwort) {
         this.connectURL = connectURL;
         datenbankverbindung = null;
         datenbanktreiberLaden();
@@ -46,6 +46,7 @@ public class DB_Verbindung {
                     System.out.println("Verbindung zum Server bzw. zur Datenbank erfolgreich!");
             } catch(SQLException e){
                     System.out.println("ES kann keine Verbindung zum Server bzw. zur Datenbank hergestellt werden!");
+                    //Hier Fehler Login exception
                     e.printStackTrace();
             }
     }
@@ -76,17 +77,33 @@ public class DB_Verbindung {
     public ArrayList<Schueler> getSchueler(String Klasse){
         ArrayList<Schueler> schueler = new ArrayList<>();
         try{
-            String query = "SELECT Vorname, Name, Klasse, Geburtsdatum, Strasse, PLZ, OrtAbk, AbschlussDatum FROM schueler WHERE Klasse = ?";
-            Statement stmt = datenbankverbindung.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+            //ID, Vorname, Name, Geburtsdatum, Strasse, PLZ, OrtAbk, AbschlussDatum 
+            String querySchuelerdaten = "SELECT ID, Vorname, Name, Geburtsdatum, Strasse, PLZ, OrtAbk, AbschlussDatum FROM schueler WHERE Klasse = '" + Klasse + "'";
+            Statement stmtSchuelerdaten = datenbankverbindung.createStatement();
+            ResultSet rsSchuelerdaten = stmtSchuelerdaten.executeQuery(querySchuelerdaten);
 
-            System.out.println("Customer-ID\tName\t\tCity\tCreditlimit");
-
-            while(rs.next()){
-                
+            while(rsSchuelerdaten.next()){
+                int id = rsSchuelerdaten.getInt("ID");
+                String querySchuelerBild = "SELECT Foto FROM schuelerfotos WHERE Schueler_ID = " + id;
+                Statement stmtSchuelerBild = datenbankverbindung.createStatement();
+                ResultSet rsSchuelerBild = stmtSchuelerBild.executeQuery(querySchuelerBild);
+                if(rsSchuelerBild.next()){
+                    schueler.add(new Schueler(
+                            rsSchuelerdaten.getString("Name"), 
+                            rsSchuelerdaten.getString("Vorname"), 
+                            rsSchuelerdaten.getDate("Geburtsdatum").toString(), 
+                            rsSchuelerdaten.getString("Strasse"), 
+                            rsSchuelerdaten.getString("PLZ"), 
+                            rsSchuelerdaten.getString("OrtAbk"), 
+                            rsSchuelerBild.getBlob("Foto"), 
+                            rsSchuelerdaten.getString("AbschlussDatum")
+                    ));
+                }
+                stmtSchuelerBild.close();
+                rsSchuelerBild.close();
             }
-            rs.close();
-            stmt.close();
+            rsSchuelerdaten.close();
+            stmtSchuelerdaten.close();
         }catch(SQLException e){
             System.out.println("Kein Zugriff auf Tabelle möglich");
             System.out.println(e.getMessage());
@@ -155,7 +172,7 @@ public class DB_Verbindung {
         try {
             datenbankverbindung.close();
         } catch (SQLException e) {
-            System.out.println("Die Connection konnte nich geschlossen werden.");
+            System.out.println("Die Connection konnte nicht geschlossen werden.");
             e.printStackTrace();
         }
     }
