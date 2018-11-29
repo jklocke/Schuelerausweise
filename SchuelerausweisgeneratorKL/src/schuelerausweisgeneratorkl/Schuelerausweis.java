@@ -14,6 +14,14 @@ public class Schuelerausweis {
     private Atiw datenAtiw;
     private String schuelerDaten;
 
+    public String getSchuelerDaten() {
+        return schuelerDaten;
+    }
+
+    public void setSchuelerDaten(String schuelerDaten) {
+        this.schuelerDaten = schuelerDaten;
+    }
+
     public Schueler getSchueler() {
         return schueler;
     }
