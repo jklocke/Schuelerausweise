@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -40,12 +41,6 @@
          </children>
       </AnchorPane>
    </top>
-   <center>
-      <ImageView fx:id="ivSchuelerausweis" fitHeight="296.0" fitWidth="488.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-         <image>
-            <Image url="@./Schuelerausweisdesign.png" />
-         </image></ImageView>
-   </center>
    <right>
       <VBox prefHeight="320.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
    </right>
@@ -60,4 +55,18 @@
          </children>
       </AnchorPane>
    </bottom>
+   <center>
+      <AnchorPane prefHeight="272.0" prefWidth="584.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="ivSchuelerausweis" fitWidth="414.0" layoutX="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@./Schuelerausweisdesign.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>
