@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="773.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="773.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schuelerausweisgeneratorkl.FXMLDocumentController">
    <top>
       <AnchorPane prefHeight="94.0" prefWidth="806.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnPDF" alignment="CENTER" layoutX="127.0" layoutY="54.0" mnemonicParsing="false" text="PDF speichern" textAlignment="CENTER">
+            <Button fx:id="btnPDF" alignment="CENTER" layoutX="127.0" layoutY="54.0" mnemonicParsing="false" onAction="#btnPDFClick" text="PDF speichern" textAlignment="CENTER">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -37,7 +37,7 @@
                   <Insets />
                </opaqueInsets>
             </ComboBox>
-            <Button fx:id="btnImp" alignment="CENTER" layoutX="251.0" layoutY="54.0" mnemonicParsing="false" text="Impressum" />
+            <Button fx:id="btnImp" alignment="CENTER" layoutX="251.0" layoutY="54.0" mnemonicParsing="false" onAction="#btnImpressumClick" text="Impressum" />
          </children>
       </AnchorPane>
    </top>
@@ -63,7 +63,7 @@
             <TextField fx:id="txtGeb" disable="true" layoutX="98.0" layoutY="74.0" />
             <TextField fx:id="txtOrt" disable="true" layoutX="80.0" layoutY="104.0" />
             <TextField fx:id="txtStr" disable="true" layoutX="69.0" layoutY="133.0" />
-            <Button fx:id="btnBearbeiten" layoutX="301.0" layoutY="74.0" mnemonicParsing="false" text="Bearbeiten" />
+            <Button fx:id="btnBearbeiten" layoutX="301.0" layoutY="74.0" mnemonicParsing="false" onAction="#btnBearbeitenClick" text="Bearbeiten" />
          </children>
       </AnchorPane>
    </center>
