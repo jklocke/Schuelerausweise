@@ -5,7 +5,10 @@
  */
 package schuelerausweisgeneratorkl;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -15,6 +18,7 @@ public class Verwaltung {
     private ArrayList<String> klassennamen = new ArrayList<>();
     private ArrayList<Schuelerausweis> schuelerausweise = new ArrayList<>();
     private ArrayList<Schueler> schueler = new ArrayList<>();
+    private String[] htmlSplitParts = null;
 
     public ArrayList<String> getKlassennamen() {
         return klassennamen;
@@ -42,7 +46,13 @@ public class Verwaltung {
 
 
 
-    public Verwaltung() {
+    public Verwaltung() throws FileNotFoundException {
+        this.splitHTML();
+    }
+    
+    private void splitHTML() throws FileNotFoundException{
+        String htmlFile = new Scanner(new File("schuelerausweis.html")).useDelimiter("\\Z").next();
+        htmlSplitParts = htmlFile.split("§");
     }
 
     @Override
@@ -57,7 +67,7 @@ public class Verwaltung {
     public void erstelleSchuelerausweis(){
         schuelerausweise.clear();
         for(Schueler schueler: schueler){
-            schuelerausweise.add(new Schuelerausweis(schueler," "));
+            schuelerausweise.add(new Schuelerausweis(schueler, htmlSplitParts));
         }
     }
 
