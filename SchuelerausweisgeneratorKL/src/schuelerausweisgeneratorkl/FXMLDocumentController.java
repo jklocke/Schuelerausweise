@@ -5,12 +5,20 @@
  */
 package schuelerausweisgeneratorkl;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -19,17 +27,71 @@ import javafx.scene.control.Label;
 public class FXMLDocumentController implements Initializable {
     
     @FXML
-    private Label label;
-    
+    private Button btnPDF;
     @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
+    private Label lblKopf;
+    @FXML
+    private ImageView imageAtiw;
+    @FXML
+    private ComboBox<String> cbKlasse;
+    @FXML
+    private Button btnImp;
+    @FXML
+    private ListView<Schueler> lvSchueler;
+    @FXML
+    private Label lblVorname;
+    @FXML
+    private Label lblNachname;
+    @FXML
+    private Label lblGeb;
+    @FXML
+    private Label lblOrt;
+    @FXML
+    private Label lblStr;
+    @FXML
+    private TextField txtVorname;
+    @FXML
+    private TextField txtNachname;
+    @FXML
+    private TextField txtGeb;
+    @FXML
+    private TextField txtOrt;
+    @FXML
+    private TextField txtStr;
+    @FXML
+    private Button btnBearbeiten;
+    
+    private Verwaltung verwaltung;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        try {
+            verwaltung = new Verwaltung();
+            verwaltung.holeKlassennamenAusDB();
+            cbKlasse = new ComboBox<>();
+            String value = verwaltung.getKlassennamen().get(1);
+            cbKlasse.setValue(value);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
+
+    @FXML
+    private void btnPDFClick(ActionEvent event) {
+        verwaltung.getPdfGenerator().erzeugePDF(verwaltung.getSchuelerausweise());      
+    }
+
+    @FXML
+    private void btnImpressumClick(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnBearbeitenClick(ActionEvent event) {
+        txtVorname.setDisable(false);
+        txtNachname.setDisable(false);
+        txtStr.setDisable(false);
+        txtOrt.setDisable(false);
+        txtGeb.setDisable(false);      
+    }
     
 }
