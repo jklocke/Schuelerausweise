@@ -67,6 +67,7 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             verwaltung = new Verwaltung();
+            verwaltung.holeKlassennamenAusDB();
             verwaltung.erstelleSchuelerausweis();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
@@ -90,8 +91,7 @@ public class FXMLDocumentController implements Initializable {
         txtNachname.setDisable(false);
         txtStr.setDisable(false);
         txtOrt.setDisable(false);
-        txtGeb.setDisable(false);
-        
+        txtGeb.setDisable(false);      
     }
     
 }
