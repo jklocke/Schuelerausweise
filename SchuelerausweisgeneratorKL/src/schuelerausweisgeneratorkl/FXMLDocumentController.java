@@ -33,11 +33,11 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ImageView imageAtiw;
     @FXML
-    private ComboBox<?> cbKlasse;
+    private ComboBox<String> cbKlasse;
     @FXML
     private Button btnImp;
     @FXML
-    private ListView<?> lvSchueler;
+    private ListView<Schueler> lvSchueler;
     @FXML
     private Label lblVorname;
     @FXML
@@ -68,7 +68,9 @@ public class FXMLDocumentController implements Initializable {
         try {
             verwaltung = new Verwaltung();
             verwaltung.holeKlassennamenAusDB();
-            verwaltung.erstelleSchuelerausweis();
+            cbKlasse = new ComboBox<>();
+            String value = verwaltung.getKlassennamen().get(1);
+            cbKlasse.setValue(value);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -76,9 +78,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void btnPDFClick(ActionEvent event) {
-        PDF_Generator generate = new PDF_Generator();
-        generate.erzeugePDF(verwaltung.getSchuelerausweise());
-        
+        verwaltung.getPdfGenerator().erzeugePDF(verwaltung.getSchuelerausweise());      
     }
 
     @FXML

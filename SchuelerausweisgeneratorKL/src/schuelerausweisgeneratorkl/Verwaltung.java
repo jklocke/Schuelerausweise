@@ -20,6 +20,31 @@ public class Verwaltung {
     private ArrayList<Schueler> schueler = new ArrayList<>();
     private String[] htmlSplitParts = null;
     private DB_Verbindung dbVerbindung;
+    private PDF_Generator pdfGenerator;
+
+    public String[] getHtmlSplitParts() {
+        return htmlSplitParts;
+    }
+
+    public void setHtmlSplitParts(String[] htmlSplitParts) {
+        this.htmlSplitParts = htmlSplitParts;
+    }
+
+    public DB_Verbindung getDbVerbindung() {
+        return dbVerbindung;
+    }
+
+    public void setDbVerbindung(DB_Verbindung dbVerbindung) {
+        this.dbVerbindung = dbVerbindung;
+    }
+
+    public PDF_Generator getPdfGenerator() {
+        return pdfGenerator;
+    }
+
+    public void setPdfGenerator(PDF_Generator pdfGenerator) {
+        this.pdfGenerator = pdfGenerator;
+    }
 
     public ArrayList<String> getKlassennamen() {
         return klassennamen;
@@ -57,6 +82,7 @@ public class Verwaltung {
     public Verwaltung() throws FileNotFoundException {
         this.login("root","root");
         this.splitHTML();
+        pdfGenerator = new PDF_Generator();
     }
     
     private void splitHTML() throws FileNotFoundException{
