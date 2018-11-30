@@ -5,8 +5,11 @@
  */
 package schuelerausweisgeneratorkl;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -58,13 +61,22 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button btnBearbeiten;
     
+    private Verwaltung verwaltung;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        try {
+            verwaltung = new Verwaltung();
+            verwaltung.erstelleSchuelerausweis();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
 
     @FXML
     private void btnPDFClick(ActionEvent event) {
+        PDF_Generator generate = new PDF_Generator();
+        generate.erzeugePDF(verwaltung.getSchuelerausweise());
         
     }
 
