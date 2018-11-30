@@ -12,7 +12,15 @@ package schuelerausweisgeneratorkl;
 public class Schuelerausweis {
     private Schueler schueler;
     private Atiw datenAtiw;
-    private String schuelerausweisXML;
+    private String schuelerDaten;
+
+    public String getSchuelerDaten() {
+        return schuelerDaten;
+    }
+
+    public void setSchuelerDaten(String schuelerDaten) {
+        this.schuelerDaten = schuelerDaten;
+    }
 
     public Schueler getSchueler() {
         return schueler;
@@ -30,26 +38,19 @@ public class Schuelerausweis {
         this.datenAtiw = datenAtiw;
     }
 
-    public String getSchuelerausweisXML() {
-        return schuelerausweisXML;
-    }
-
-    public void setSchuelerausweisXML(String schuelerausweisXML) {
-        this.schuelerausweisXML = schuelerausweisXML;
-    }
-
-    public Schuelerausweis(Schueler schueler,  String schuelerausweisXML) {
+    public Schuelerausweis(Schueler schueler, String[] htmlSplitParts) {
         this.schueler = schueler;
-        this.schuelerausweisXML = schuelerausweisXML;
-        this.erstelleSchuelerausweis();
+
+        this.erstelleSchuelerausweis(htmlSplitParts);
     }
 
     @Override
     public String toString() {
-        return "Schuelerausweis{" + "schueler=" + schueler + ", datenAtiw=" + datenAtiw + ", schuelerausweisXML=" + schuelerausweisXML + '}';
+        return "Schuelerausweis{" + "schueler=" + schueler + ", datenAtiw=" + datenAtiw + '}';
     }
     
-    private void erstelleSchuelerausweis(){
-        //Schülerausweis erstellen
+    private void erstelleSchuelerausweis(String[] htmlSplitParts){
+        schuelerDaten = htmlSplitParts[0] + schueler.getVname() + htmlSplitParts[1] + schueler.getName() + htmlSplitParts[2] + schueler.getGebDatum()
+                + htmlSplitParts[3] + schueler.getPlz() + " " + schueler.getOrt() + htmlSplitParts[4] + schueler.getStrasse() + htmlSplitParts[5];
     }
 }
