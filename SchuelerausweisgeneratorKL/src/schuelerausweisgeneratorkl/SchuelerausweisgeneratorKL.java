@@ -5,26 +5,49 @@
  */
 package schuelerausweisgeneratorkl;
 
+import java.io.FileNotFoundException;
+import java.sql.SQLException;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 /**
  *
  * @author jonas.klocke
  */
 public class SchuelerausweisgeneratorKL extends Application {
+    int permission;
+    DB_Verbindung db;
     
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        
+       
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
         stage.show();
+        
+//        LoginDlg loginDlg = new LoginDlg();
+//        Optional<Pair<String, String>> result = loginDlg.showAndWait();
+//
+//        result.ifPresent(usernamePassword -> {
+//            try {
+//                permission = db.dbCheckLogin(usernamePassword.getKey(), usernamePassword.getValue());
+//                System.out.println(permission);
+//            } catch (SQLException ex) {
+//                Logger.getLogger(Pflegeverwaltung.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        });
     }
 
     /**

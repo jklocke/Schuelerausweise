@@ -10,6 +10,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -37,7 +39,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button btnImp;
     @FXML
-    private ListView<Schueler> lvSchueler;
+    private ListView<?> lvSchueler;
     @FXML
     private Label lblVorname;
     @FXML
@@ -69,8 +71,11 @@ public class FXMLDocumentController implements Initializable {
             verwaltung = new Verwaltung();
             verwaltung.holeKlassennamenAusDB();
             cbKlasse = new ComboBox<>();
-            String value = verwaltung.getKlassennamen().get(1);
-            cbKlasse.setValue(value);
+            ObservableList<String> klassen = FXCollections.observableArrayList();
+            for (String klasse : verwaltung.getKlassennamen()) {
+                klassen.add(klasse);
+            }
+            cbKlasse.setItems(klassen);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
