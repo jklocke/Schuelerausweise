@@ -7,6 +7,7 @@ package schuelerausweisgeneratorkl;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,11 +36,11 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ImageView imageAtiw;
     @FXML
-    private ComboBox<String> cbKlasse;
+    private ComboBox<String> cbKlasse = new ComboBox<>(FXCollections.observableArrayList(""));
     @FXML
     private Button btnImp;
     @FXML
-    private ListView<?> lvSchueler;
+    private ListView<Schueler> lvSchueler;
     @FXML
     private Label lblVorname;
     @FXML
@@ -63,6 +64,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button btnBearbeiten;
     
+    //private ObservableList<String> klassennamen = FXCollections.observableArrayList();
+    
     private Verwaltung verwaltung;
     
     @Override
@@ -70,12 +73,11 @@ public class FXMLDocumentController implements Initializable {
         try {
             verwaltung = new Verwaltung();
             verwaltung.holeKlassennamenAusDB();
-            cbKlasse = new ComboBox<>();
-            ObservableList<String> klassen = FXCollections.observableArrayList();
-            for (String klasse : verwaltung.getKlassennamen()) {
-                klassen.add(klasse);
+            ArrayList<String> klassennamen = verwaltung.getKlassennamen();
+            for(String klasse: klassennamen)
+            {
+                cbKlasse.getItems().add(klasse);
             }
-            cbKlasse.setItems(klassen);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -98,5 +100,10 @@ public class FXMLDocumentController implements Initializable {
         txtOrt.setDisable(false);
         txtGeb.setDisable(false);      
     }
-    
+
+    @FXML
+    private void schuelerZuKlasse(ActionEvent event) {
+        //Schueler schueler = lvSchueler.getSelectionModel().getSelectedItem();
+    }
+
 }
