@@ -7,6 +7,7 @@ package schuelerausweisgeneratorkl;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -79,8 +80,14 @@ public class Verwaltung {
     }
 
 
-    public Verwaltung() throws FileNotFoundException {
+    public Verwaltung() throws FileNotFoundException, SQLException {
         this.login("root","root");
+        this.splitHTML();
+        pdfGenerator = new PDF_Generator();
+    }
+    
+    public Verwaltung(String username, String password) throws FileNotFoundException, SQLException {
+        this.login(username,password);
         this.splitHTML();
         pdfGenerator = new PDF_Generator();
     }
@@ -95,7 +102,7 @@ public class Verwaltung {
         return "Verwaltung{" + "klassennamen=" + klassennamen + ", schuelerausweise=" + schuelerausweise + ", schueler=" + schueler + '}';
     }
     
-    public void login(String user, String passwort){
+    public void login(String user, String passwort) throws SQLException{
         dbVerbindung = new DB_Verbindung("jdbc:mysql://localhost/schild_nrw",user,passwort);
     }
     
