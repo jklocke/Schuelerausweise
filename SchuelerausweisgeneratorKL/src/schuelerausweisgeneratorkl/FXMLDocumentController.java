@@ -7,21 +7,26 @@ package schuelerausweisgeneratorkl;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.util.Pair;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 
@@ -69,6 +74,40 @@ public class FXMLDocumentController implements Initializable {
     //private ObservableList<String> klassennamen = FXCollections.observableArrayList();
     
     private Verwaltung verwaltung;
+    int permission;
+    DB_Verbindung db;
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        LoginDlg loginDlg = new LoginDlg();
+        Optional<Pair<String, String>> result = loginDlg.showAndWait();
+        
+        result.ifPresent(usernamePassword -> {
+            try {
+                verwaltung = new Verwaltung(usernamePassword.getKey(),usernamePassword.getValue());
+                verwaltung.holeKlassennamenAusDB();
+                System.exit(-1);
+            } catch (SQLException ex) {
+               loginDlg.setContentText("Login fehlgeschlagen");
+            }catch (Exception ex) {
+               ex.printStackTrace();
+            }
+        });
+        //result.orElseThrow(exceptionSupplier -> );
+//        loginDlg.onCloseRequestProperty().addListener(new ChangeListener() -> {
+//            System.out.println("Handled by anonymous class listener");
+//        });
+            ObservableList<String> options = 
+            FXCollections.observableArrayList(
+                "Option 1",
+                "Option 2",
+                "Option 3"
+            );
+
+            cbKlasse = new ComboBox<>();      
+            cbKlasse.setItems(options);
+    //            cbKlasse.getItems().clear();
+    //            cbKlasse.getItems().addAll("FS161");
     @FXML
     private Label lblPlz;
     @FXML
