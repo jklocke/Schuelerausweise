@@ -40,7 +40,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button btnImp;
     @FXML
-    private ListView<Schueler> lvSchueler;
+    private ListView<String> lvSchueler;
     @FXML
     private Label lblVorname;
     @FXML
@@ -67,6 +67,12 @@ public class FXMLDocumentController implements Initializable {
     //private ObservableList<String> klassennamen = FXCollections.observableArrayList();
     
     private Verwaltung verwaltung;
+
+    public FXMLDocumentController() {
+        this.lvSchueler = new ListView<>();
+        ObservableList<String> items =FXCollections.observableArrayList();
+        lvSchueler.setItems(items);
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -104,6 +110,10 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void schuelerZuKlasse(ActionEvent event) {
         //Schueler schueler = lvSchueler.getSelectionModel().getSelectedItem();
+        //lvSchueler.getItems().add(verwaltung.getSchueler().get(0));
+        //String klasse = cbKlasse.getSelectionModel().getSelectedItem();
+        
+        lvSchueler.getItems().add("Jonas Klocke");
     }
 
 }
