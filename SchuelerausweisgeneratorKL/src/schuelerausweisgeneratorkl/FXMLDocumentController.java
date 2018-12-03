@@ -22,6 +22,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
 
 /**
  *
@@ -67,6 +69,10 @@ public class FXMLDocumentController implements Initializable {
     //private ObservableList<String> klassennamen = FXCollections.observableArrayList();
     
     private Verwaltung verwaltung;
+    @FXML
+    private Label lblPlz;
+    @FXML
+    private TextField txtPlz;
 
     public FXMLDocumentController() {
         this.lvSchueler = new ListView<>();
@@ -91,6 +97,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void btnPDFClick(ActionEvent event) {
+        verwaltung.erstelleSchuelerausweis();
         verwaltung.getPdfGenerator().erzeugePDF(verwaltung.getSchuelerausweise());      
     }
 
@@ -104,16 +111,36 @@ public class FXMLDocumentController implements Initializable {
         txtNachname.setDisable(false);
         txtStr.setDisable(false);
         txtOrt.setDisable(false);
-        txtGeb.setDisable(false);      
+        txtGeb.setDisable(false); 
+        txtPlz.setDisable(false);
     }
 
     @FXML
     private void schuelerZuKlasse(ActionEvent event) {
-        //Schueler schueler = lvSchueler.getSelectionModel().getSelectedItem();
-        //lvSchueler.getItems().add(verwaltung.getSchueler().get(0));
-        //String klasse = cbKlasse.getSelectionModel().getSelectedItem();
         
-        lvSchueler.getItems().add("Jonas Klocke");
+        //lvSchueler.getItems().add(verwaltung.getSchueler().get(0));
+        String klasse = cbKlasse.getSelectionModel().getSelectedItem();
+        verwaltung.holeSchuelerAusDB(klasse);
+        
+        for(Schueler schueler: verwaltung.getSchueler()){
+            lvSchueler.getItems().add(schueler.getVname() + "/" + schueler.getName());
+        }
+    }
+
+    @FXML
+    private void schuelerAnzeigen(MouseEvent event) {
+        String schuelername = lvSchueler.getSelectionModel().getSelectedItem();
+        String[] split = schuelername.split("/");
+        for(Schueler schueler: verwaltung.getSchueler()){
+            if(schueler.getVname().equals(split[0]) && schueler.getName().equals(split[1])){
+                txtVorname.setText(schueler.getVname());
+                txtNachname.setText(schueler.getName());
+                txtStr.setText(schueler.getStrasse());
+                txtOrt.setText(schueler.getOrt());
+                txtPlz.setText(schueler.getPlz());
+                txtGeb.setText(schueler.getGebDatum()); 
+            }
+        }           
     }
 
 }
