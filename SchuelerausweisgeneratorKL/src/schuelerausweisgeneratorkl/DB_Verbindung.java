@@ -7,10 +7,11 @@ package schuelerausweisgeneratorkl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -87,11 +88,12 @@ public class DB_Verbindung {
                 String querySchuelerBild = "SELECT Foto FROM schuelerfotos WHERE Schueler_ID = " + id;
                 Statement stmtSchuelerBild = datenbankverbindung.createStatement();
                 ResultSet rsSchuelerBild = stmtSchuelerBild.executeQuery(querySchuelerBild);
+                DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
                 if(rsSchuelerBild.next()){
                     schueler.add(new Schueler(
                             rsSchuelerdaten.getString("Name"), 
                             rsSchuelerdaten.getString("Vorname"), 
-                            rsSchuelerdaten.getDate("Geburtsdatum").toString(), 
+                            formatter.format(rsSchuelerdaten.getDate("Geburtsdatum")), 
                             rsSchuelerdaten.getString("Strasse"), 
                             rsSchuelerdaten.getString("PLZ"), 
                             rsSchuelerdaten.getString("OrtAbk"), 

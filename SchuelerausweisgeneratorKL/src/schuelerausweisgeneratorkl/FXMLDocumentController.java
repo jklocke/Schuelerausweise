@@ -5,8 +5,13 @@
  */
 package schuelerausweisgeneratorkl;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,7 +35,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ImageView imageAtiw;
     @FXML
-    private ComboBox<?> cbKlasse;
+    private ComboBox<String> cbKlasse;
     @FXML
     private Button btnImp;
     @FXML
@@ -58,14 +63,27 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button btnBearbeiten;
     
+    private Verwaltung verwaltung;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        try {
+            verwaltung = new Verwaltung();
+            verwaltung.holeKlassennamenAusDB();
+            cbKlasse = new ComboBox<>();
+            ObservableList<String> klassen = FXCollections.observableArrayList();
+            for (String klasse : verwaltung.getKlassennamen()) {
+                klassen.add(klasse);
+            }
+            cbKlasse.setItems(klassen);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
 
     @FXML
     private void btnPDFClick(ActionEvent event) {
-        
+        verwaltung.getPdfGenerator().erzeugePDF(verwaltung.getSchuelerausweise());      
     }
 
     @FXML
@@ -78,8 +96,7 @@ public class FXMLDocumentController implements Initializable {
         txtNachname.setDisable(false);
         txtStr.setDisable(false);
         txtOrt.setDisable(false);
-        txtGeb.setDisable(false);
-        
+        txtGeb.setDisable(false);      
     }
     
 }
