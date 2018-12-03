@@ -22,7 +22,7 @@ public class DB_Verbindung {
     Connection datenbankverbindung;
     String connectURL;
 
-    public DB_Verbindung(String connectURL, String user, String passwort) {
+    public DB_Verbindung(String connectURL, String user, String passwort) throws SQLException {
         this.connectURL = connectURL;
         datenbankverbindung = null;
         datenbanktreiberLaden();
@@ -41,15 +41,9 @@ public class DB_Verbindung {
             }
     }
 	
-    private void dBVerbindungAufbauen(String user, String password){
-            try{
-                    datenbankverbindung = DriverManager.getConnection(connectURL, user, password);
-                    System.out.println("Verbindung zum Server bzw. zur Datenbank erfolgreich!");
-            } catch(SQLException e){
-                    System.out.println("ES kann keine Verbindung zum Server bzw. zur Datenbank hergestellt werden!");
-                    //Hier Fehler Login exception
-                    e.printStackTrace();
-            }
+    private void dBVerbindungAufbauen(String user, String password) throws SQLException{
+        datenbankverbindung = DriverManager.getConnection(connectURL, user, password);
+        //System.out.println("Verbindung zum Server bzw. zur Datenbank erfolgreich!");
     }
     
     public ArrayList<String> getKlassennamen(){
