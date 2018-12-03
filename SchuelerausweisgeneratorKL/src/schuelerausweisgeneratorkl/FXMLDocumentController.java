@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +27,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.util.Pair;
+import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
 
 /**
  *
@@ -40,7 +43,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ImageView imageAtiw;
     @FXML
-    private ComboBox<String> cbKlasse;
+    private ComboBox<String> cbKlasse = new ComboBox<>(FXCollections.observableArrayList(""));
     @FXML
     private Button btnImp;
     @FXML
@@ -67,6 +70,8 @@ public class FXMLDocumentController implements Initializable {
     private TextField txtStr;
     @FXML
     private Button btnBearbeiten;
+    
+    //private ObservableList<String> klassennamen = FXCollections.observableArrayList();
     
     private Verwaltung verwaltung;
     int permission;
@@ -103,10 +108,35 @@ public class FXMLDocumentController implements Initializable {
             cbKlasse.setItems(options);
     //            cbKlasse.getItems().clear();
     //            cbKlasse.getItems().addAll("FS161");
+    @FXML
+    private Label lblPlz;
+    @FXML
+    private TextField txtPlz;
+
+    public FXMLDocumentController() {
+        this.lvSchueler = new ListView<>();
+        ObservableList<String> items =FXCollections.observableArrayList();
+        lvSchueler.setItems(items);
+    }
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        try {
+            verwaltung = new Verwaltung();
+            verwaltung.holeKlassennamenAusDB();
+            ArrayList<String> klassennamen = verwaltung.getKlassennamen();
+            for(String klasse: klassennamen)
+            {
+                cbKlasse.getItems().add(klasse);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
 
     @FXML
     private void btnPDFClick(ActionEvent event) {
+        verwaltung.erstelleSchuelerausweis();
         verwaltung.getPdfGenerator().erzeugePDF(verwaltung.getSchuelerausweise());      
     }
 
@@ -120,7 +150,36 @@ public class FXMLDocumentController implements Initializable {
         txtNachname.setDisable(false);
         txtStr.setDisable(false);
         txtOrt.setDisable(false);
-        txtGeb.setDisable(false);      
+        txtGeb.setDisable(false); 
+        txtPlz.setDisable(false);
     }
-    
+
+    @FXML
+    private void schuelerZuKlasse(ActionEvent event) {
+        
+        //lvSchueler.getItems().add(verwaltung.getSchueler().get(0));
+        String klasse = cbKlasse.getSelectionModel().getSelectedItem();
+        verwaltung.holeSchuelerAusDB(klasse);
+        
+        for(Schueler schueler: verwaltung.getSchueler()){
+            lvSchueler.getItems().add(schueler.getVname() + "/" + schueler.getName());
+        }
+    }
+
+    @FXML
+    private void schuelerAnzeigen(MouseEvent event) {
+        String schuelername = lvSchueler.getSelectionModel().getSelectedItem();
+        String[] split = schuelername.split("/");
+        for(Schueler schueler: verwaltung.getSchueler()){
+            if(schueler.getVname().equals(split[0]) && schueler.getName().equals(split[1])){
+                txtVorname.setText(schueler.getVname());
+                txtNachname.setText(schueler.getName());
+                txtStr.setText(schueler.getStrasse());
+                txtOrt.setText(schueler.getOrt());
+                txtPlz.setText(schueler.getPlz());
+                txtGeb.setText(schueler.getGebDatum()); 
+            }
+        }           
+    }
+
 }
