@@ -115,6 +115,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void btnPDFClick(ActionEvent event) {
         verwaltung.erstelleSchuelerausweis();
+        ArrayList<Schuelerausweis> schueler = verwaltung.getSchuelerausweise();
         verwaltung.getPdfGenerator().erzeugePDF(verwaltung.getSchuelerausweise());      
     }
 
