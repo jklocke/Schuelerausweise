@@ -41,11 +41,11 @@ public class LoginDlg extends Dialog {
         grid.setPadding(new Insets(20, 150, 10, 10));
 
         TextField username = new TextField();
-        username.setPromptText("Username");
+        username.setPromptText("Benutzername");
         PasswordField password = new PasswordField();
         password.setPromptText("Password");
 
-        grid.add(new Label("Username:"), 0, 0);
+        grid.add(new Label("Benutzername:"), 0, 0);
         grid.add(username, 1, 0);
         grid.add(new Label("Password:"), 0, 1);
         grid.add(password, 1, 1);
