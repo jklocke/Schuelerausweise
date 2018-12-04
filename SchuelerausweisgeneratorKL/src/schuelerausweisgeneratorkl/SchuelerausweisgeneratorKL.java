@@ -36,18 +36,6 @@ public class SchuelerausweisgeneratorKL extends Application {
         
         stage.setScene(scene);
         stage.show();
-        
-//        LoginDlg loginDlg = new LoginDlg();
-//        Optional<Pair<String, String>> result = loginDlg.showAndWait();
-//
-//        result.ifPresent(usernamePassword -> {
-//            try {
-//                permission = db.dbCheckLogin(usernamePassword.getKey(), usernamePassword.getValue());
-//                System.out.println(permission);
-//            } catch (SQLException ex) {
-//                Logger.getLogger(Pflegeverwaltung.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        });
     }
 
     /**

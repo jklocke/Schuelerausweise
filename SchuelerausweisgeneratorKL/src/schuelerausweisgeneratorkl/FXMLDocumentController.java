@@ -70,6 +70,10 @@ public class FXMLDocumentController implements Initializable {
     private TextField txtStr;
     @FXML
     private Button btnBearbeiten;
+    @FXML
+    private Label lblPlz;
+    @FXML
+    private TextField txtPlz;
     
     //private ObservableList<String> klassennamen = FXCollections.observableArrayList();
     
@@ -86,57 +90,32 @@ public class FXMLDocumentController implements Initializable {
             try {
                 verwaltung = new Verwaltung(usernamePassword.getKey(),usernamePassword.getValue());
                 verwaltung.holeKlassennamenAusDB();
-                System.exit(-1);
+                ArrayList<String> klassennamen = verwaltung.getKlassennamen();
+                for(String klasse: klassennamen)
+                {
+                    cbKlasse.getItems().add(klasse);
+                }
+                //System.exit(-1);
             } catch (SQLException ex) {
                loginDlg.setContentText("Login fehlgeschlagen");
             }catch (Exception ex) {
                ex.printStackTrace();
             }
         });
-        //result.orElseThrow(exceptionSupplier -> );
-//        loginDlg.onCloseRequestProperty().addListener(new ChangeListener() -> {
-//            System.out.println("Handled by anonymous class listener");
-//        });
-            ObservableList<String> options = 
-            FXCollections.observableArrayList(
-                "Option 1",
-                "Option 2",
-                "Option 3"
-            );
-
-            cbKlasse = new ComboBox<>();      
-            cbKlasse.setItems(options);
-    //            cbKlasse.getItems().clear();
-    //            cbKlasse.getItems().addAll("FS161");
-    @FXML
-    private Label lblPlz;
-    @FXML
-    private TextField txtPlz;
-
+    }
+    /**
+     *
+     */
     public FXMLDocumentController() {
         this.lvSchueler = new ListView<>();
         ObservableList<String> items =FXCollections.observableArrayList();
         lvSchueler.setItems(items);
     }
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        try {
-            verwaltung = new Verwaltung();
-            verwaltung.holeKlassennamenAusDB();
-            ArrayList<String> klassennamen = verwaltung.getKlassennamen();
-            for(String klasse: klassennamen)
-            {
-                cbKlasse.getItems().add(klasse);
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }    
-
+   
     @FXML
     private void btnPDFClick(ActionEvent event) {
         verwaltung.erstelleSchuelerausweis();
+        ArrayList<Schuelerausweis> schueler = verwaltung.getSchuelerausweise();
         verwaltung.getPdfGenerator().erzeugePDF(verwaltung.getSchuelerausweise());      
     }
 
