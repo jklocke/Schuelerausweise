@@ -51,6 +51,6 @@ public class Schuelerausweis {
     
     private void erstelleSchuelerausweis(String[] htmlSplitParts){
         schuelerDaten = htmlSplitParts[0] + schueler.getVname() + htmlSplitParts[1] + schueler.getName() + htmlSplitParts[2] + schueler.getGebDatum()
-                + htmlSplitParts[3] + schueler.getPlz() + " " + schueler.getOrt() + htmlSplitParts[4] + schueler.getStrasse() + htmlSplitParts[5];
+                + htmlSplitParts[3] + schueler.getPlz() + " " + schueler.getOrt() + htmlSplitParts[4] + schueler.getStrasse() + htmlSplitParts[5] + schueler.getAbschlussdatum() + htmlSplitParts[6];
     }
 }
