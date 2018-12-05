@@ -42,7 +42,7 @@ public class PDF_Generator {
             String schuelerdaten = saw.getSchuelerDaten();
             System.out.println(schuelerdaten);
             try {
-            String name = pfad + "schuelerausweis" + saw.getSchueler().getName() + ".pdf";
+            String name = pfad + "/schuelerausweis" + saw.getSchueler().getName() + ".pdf";
             OutputStream file = new FileOutputStream(new File(name));
             Document document = new Document();
             PdfWriter writer = PdfWriter.getInstance(document, file);
