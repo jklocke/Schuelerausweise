@@ -72,10 +72,12 @@ public class Verwaltung {
     }
     
     public void holeKlassennamenAusDB(){
+        klassennamen.clear();
         klassennamen = dbVerbindung.getKlassennamen();
     }
     
     public void holeSchuelerAusDB(String klasse){
+        schueler.clear();
         schueler = dbVerbindung.getSchueler(klasse);
     }
 

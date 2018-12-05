@@ -81,6 +81,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextField txtPlz;
     
+    private boolean aendern = true;
+    
     //private ObservableList<String> klassennamen = FXCollections.observableArrayList();
     
     private Verwaltung verwaltung;
@@ -144,12 +146,40 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void btnBearbeitenClick(ActionEvent event) {
-        txtVorname.setDisable(false);
-        txtNachname.setDisable(false);
-        txtStr.setDisable(false);
-        txtOrt.setDisable(false);
-        txtGeb.setDisable(false); 
-        txtPlz.setDisable(false);
+        if(aendern){
+            txtVorname.setDisable(false);
+            txtNachname.setDisable(false);
+            txtStr.setDisable(false);
+            txtOrt.setDisable(false);
+            txtGeb.setDisable(false); 
+            txtPlz.setDisable(false);
+            btnBearbeiten.setText("Änderungen speichern");
+            aendern = false;
+        }     
+        else
+        {
+            txtVorname.setDisable(true);
+            txtNachname.setDisable(true);
+            txtStr.setDisable(true);
+            txtOrt.setDisable(true);
+            txtGeb.setDisable(true); 
+            txtPlz.setDisable(true);
+            btnBearbeiten.setText("Bearbeiten");
+            String schuelername = lvSchueler.getSelectionModel().getSelectedItem();
+            String[] split = schuelername.split("/");
+            for(Schueler schueler: verwaltung.getSchueler()){
+            if(schueler.getVname().equals(split[0]) && schueler.getName().equals(split[1])){
+                    schueler.setName(txtNachname.getText());
+                    schueler.setVname(txtVorname.getText());
+                    schueler.setStrasse(txtStr.getText());
+                    schueler.setOrt(txtOrt.getText());
+                    schueler.setPlz(txtPlz.getText());
+                    schueler.setGebDatum(txtGeb.getText());
+                }
+            }
+            verwaltung.erstelleSchuelerausweis();
+            
+        }
     }
 
     @FXML
