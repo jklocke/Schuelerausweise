@@ -5,6 +5,7 @@
  */
 package schuelerausweisgeneratorkl;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -18,7 +19,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -29,6 +32,9 @@ import javafx.scene.image.ImageView;
 import javafx.util.Pair;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  *
@@ -113,12 +119,25 @@ public class FXMLDocumentController implements Initializable {
         ObservableList<String> items =FXCollections.observableArrayList();
         lvSchueler.setItems(items);
     }
-   
+    
     @FXML
     private void btnPDFClick(ActionEvent event) {
+        try{
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("MyGui.fxml"));
+//        Parent root = (Parent)loader.load();
+//        FXMLDocumentController myConroller = loader.getController();
+        Stage stage = (Stage) btnPDF.getScene().getWindow();
+        
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        File file = fileChooser.showOpenDialog(stage);
         verwaltung.erstelleSchuelerausweis();
-        ArrayList<Schuelerausweis> schueler = verwaltung.getSchuelerausweise();
-        verwaltung.getPdfGenerator().erzeugePDF(verwaltung.getSchuelerausweise());      
+        verwaltung.getPdfGenerator().erzeugePDF(verwaltung.getSchuelerausweise(), file.getPath());   
+        }catch (NullPointerException e){
+            
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @FXML
