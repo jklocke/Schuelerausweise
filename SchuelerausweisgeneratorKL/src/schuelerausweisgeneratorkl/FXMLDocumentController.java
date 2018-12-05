@@ -33,6 +33,7 @@ import javafx.util.Pair;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -127,12 +128,13 @@ public class FXMLDocumentController implements Initializable {
 //        Parent root = (Parent)loader.load();
 //        FXMLDocumentController myConroller = loader.getController();
         Stage stage = (Stage) btnPDF.getScene().getWindow();
-        
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        File file = fileChooser.showOpenDialog(stage);
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setTitle("JavaFX Projects");
+        File defaultDirectory = new File("c:/");
+        chooser.setInitialDirectory(defaultDirectory);
+        File selectedDirectory = chooser.showDialog(stage);
         verwaltung.erstelleSchuelerausweis();
-        verwaltung.getPdfGenerator().erzeugePDF(verwaltung.getSchuelerausweise(), file.getPath());   
+        verwaltung.getPdfGenerator().erzeugePDF(verwaltung.getSchuelerausweise(), selectedDirectory.getPath());   
         }catch (NullPointerException e){
             
         }catch (Exception e){
