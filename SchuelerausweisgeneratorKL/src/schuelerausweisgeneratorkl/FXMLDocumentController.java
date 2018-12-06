@@ -107,10 +107,17 @@ public class FXMLDocumentController implements Initializable {
                 //System.exit(-1);
             } catch (SQLException ex) {
                loginDlg.setContentText("Login fehlgeschlagen");
+               initialize(null, null);
+               
             }catch (Exception ex) {
                ex.printStackTrace();
             }
         });
+        try {
+            result.orElseThrow(() -> new Exception());
+        } catch (Exception ex) {
+            System.exit(-1);
+        }
     }
     /**
      *
@@ -134,6 +141,7 @@ public class FXMLDocumentController implements Initializable {
         chooser.setInitialDirectory(defaultDirectory);
         File selectedDirectory = chooser.showDialog(stage);
         verwaltung.erstelleSchuelerausweis();
+        //System.out.println(selectedDirectory.getPath());
         verwaltung.getPdfGenerator().erzeugePDF(verwaltung.getSchuelerausweise(), selectedDirectory.getPath());   
         }catch (NullPointerException e){
             

@@ -42,7 +42,7 @@ public class PDF_Generator {
     public void erzeugePDF(ArrayList<Schuelerausweis> schuelerausweise, String pfad) throws SQLException{
         for(Schuelerausweis saw : schuelerausweise)   {
             String schuelerdaten = saw.getSchuelerDaten();
-            System.out.println(schuelerdaten);
+            //System.out.println(schuelerdaten);
             try {
             String name = pfad + "/schuelerausweis" + saw.getSchueler().getName() + ".pdf";
             OutputStream file = new FileOutputStream(new File(name));
@@ -53,8 +53,8 @@ public class PDF_Generator {
             XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
             //Image bild = PngImage.getImage("Schuelerausweisdesign.png");
             Image bild2 = PngImage.getImage("src/schuelerausweisgeneratorkl/atiw-bk_150x60.png");
-            bild2.setAbsolutePosition(175, 775);
-            bild2.scalePercent(50); 
+            bild2.setAbsolutePosition(180, 780);
+            bild2.scalePercent(45); 
             //InputStream in = saw.getSchueler().getBild().getBinaryStream();  
             
             //Image image = ImageIO.read(in).getScaledInstance(0, 0, 0);
