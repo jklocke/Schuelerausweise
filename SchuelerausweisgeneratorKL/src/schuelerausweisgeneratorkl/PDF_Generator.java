@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.WritableImage;
@@ -37,7 +39,7 @@ public class PDF_Generator {
     public PDF_Generator() {
     }
     
-    public void erzeugePDF(ArrayList<Schuelerausweis> schuelerausweise, String pfad){
+    public void erzeugePDF(ArrayList<Schuelerausweis> schuelerausweise, String pfad) throws SQLException{
         for(Schuelerausweis saw : schuelerausweise)   {
             String schuelerdaten = saw.getSchuelerDaten();
             //System.out.println(schuelerdaten);
@@ -54,9 +56,20 @@ public class PDF_Generator {
             bild2.setAbsolutePosition(180, 780);
             bild2.scalePercent(45); 
             //InputStream in = saw.getSchueler().getBild().getBinaryStream();  
+            
             //Image image = ImageIO.read(in).getScaledInstance(0, 0, 0);
             //document.add(bild);
+            
+            //Image image = Image.getInstance(in);
+            
+            Blob imageBlob = (Blob) saw.getSchueler().getBild(); 
+            byte[] imageBytes = imageBlob.getBytes(1, (int) imageBlob.length());
+            Image bild1 = Image.getInstance(imageBytes);
+            bild1.setAbsolutePosition(190,675);//scaleAbsolute(300,300);
+            bild1.scalePercent(23);
+
             document.add(bild2);
+            document.add(bild1);
             document.close();
             file.close();
             } catch (DocumentException | IOException e) {
