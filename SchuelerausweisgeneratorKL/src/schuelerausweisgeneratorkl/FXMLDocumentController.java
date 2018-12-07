@@ -157,8 +157,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void btnBearbeitenClick(ActionEvent event) {
         if(aendern){
-            txtVorname.setDisable(false);
-            txtNachname.setDisable(false);
+            //txtVorname.setDisable(false);
+            //txtNachname.setDisable(false);
             txtStr.setDisable(false);
             txtOrt.setDisable(false);
             txtGeb.setDisable(false); 
@@ -168,8 +168,8 @@ public class FXMLDocumentController implements Initializable {
         }     
         else
         {
-            txtVorname.setDisable(true);
-            txtNachname.setDisable(true);
+            //txtVorname.setDisable(true);
+            //txtNachname.setDisable(true);
             txtStr.setDisable(true);
             txtOrt.setDisable(true);
             txtGeb.setDisable(true); 
@@ -188,7 +188,7 @@ public class FXMLDocumentController implements Initializable {
                 }
             }
             verwaltung.erstelleSchuelerausweis();
-            
+            aendern = true;
         }
     }
 
