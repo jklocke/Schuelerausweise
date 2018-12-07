@@ -176,6 +176,7 @@ public class FXMLDocumentController implements Initializable {
             txtPlz.setDisable(true);
             btnBearbeiten.setText("Bearbeiten");
             String schuelername = lvSchueler.getSelectionModel().getSelectedItem();
+            int index = lvSchueler.getSelectionModel().getSelectedIndex();
             String[] split = schuelername.split("/");
             for(Schueler schueler: verwaltung.getSchueler()){
             if(schueler.getVname().equals(split[0]) && schueler.getName().equals(split[1])){
