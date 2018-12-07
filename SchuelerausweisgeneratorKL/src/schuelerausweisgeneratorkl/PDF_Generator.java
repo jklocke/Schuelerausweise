@@ -53,7 +53,7 @@ public class PDF_Generator {
             XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
             //Image bild = PngImage.getImage("Schuelerausweisdesign.png");
             Image bild2 = PngImage.getImage("src/schuelerausweisgeneratorkl/atiw-bk_150x60.png");
-            bild2.setAbsolutePosition(180, 780);
+            bild2.setAbsolutePosition(190, 780);
             bild2.scalePercent(45); 
             //InputStream in = saw.getSchueler().getBild().getBinaryStream();  
             
@@ -65,8 +65,8 @@ public class PDF_Generator {
             Blob imageBlob = (Blob) saw.getSchueler().getBild(); 
             byte[] imageBytes = imageBlob.getBytes(1, (int) imageBlob.length());
             Image bild1 = Image.getInstance(imageBytes);
-            bild1.setAbsolutePosition(190,675);//scaleAbsolute(300,300);
-            bild1.scalePercent(23);
+            bild1.setAbsolutePosition(200,668);//scaleAbsolute(300,300);
+            bild1.scalePercent(34);
 
             document.add(bild2);
             document.add(bild1);
