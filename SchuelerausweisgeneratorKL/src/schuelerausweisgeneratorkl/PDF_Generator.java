@@ -41,21 +41,19 @@ public class PDF_Generator {
     
     public void erzeugePDF(ArrayList<Schuelerausweis> schuelerausweise, String pfad) throws SQLException{
         String schuelerdaten = "";
-        for(int i = 0; i < schuelerausweise.size(); i++){
-            int durchlauf = 0;
-            if(i%3 == 0){
+        for(int i = 0; i < schuelerausweise.size(); i+=5){
+            if(i%5 == 0){
             
-            //int n = i + 2;
-            //int z = i + 1;
-            schuelerdaten = "<html>" + schuelerausweise.get(i).getSchuelerDaten()+"\n" + schuelerausweise.get(i+1).getSchuelerDaten() +"\n" + schuelerausweise.get(i+2).getSchuelerDaten() +"</html>";
+            schuelerdaten = "<html>" + schuelerausweise.get(i).getSchuelerDaten()+"\n" + schuelerausweise.get(i+1).getSchuelerDaten() +"\n" + 
+                    schuelerausweise.get(i+2).getSchuelerDaten()+"\n" + schuelerausweise.get(i+3).getSchuelerDaten()+"\n" + 
+                    schuelerausweise.get(i+4).getSchuelerDaten() +"</html>";
             
         
             //for(Schuelerausweis saw : schuelerausweise)  {
             //String schuelerdaten = saw.getSchuelerDaten();
             //System.out.println(schuelerdaten);
             try {
-            durchlauf++;
-            String name = pfad + "/schuelerausweis" + (((durchlauf-1)*3)+1) + "-" + (durchlauf*3) + ".pdf";
+            String name = pfad + "/schuelerausweis" + (i+1) + "-" + ((i+5)) + ".pdf";
             
             OutputStream file = new FileOutputStream(new File(name));
             Document document = new Document();
@@ -64,13 +62,15 @@ public class PDF_Generator {
             StringReader is = new StringReader(schuelerdaten);
             XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
             //Image bild = PngImage.getImage("Schuelerausweisdesign.png");
-            int zaehler = 0;
-            while(zaehler < 3)
+            int zaehler = i;
+            int x = 0;
+            while(zaehler < i+5)
             {
                 Image bild2 = PngImage.getImage("src/schuelerausweisgeneratorkl/atiw-bk_150x60.png");
-                bild2.setAbsolutePosition(190, 780-(zaehler*150));
+                bild2.setAbsolutePosition(190, 780-(x*150));
                 bild2.scalePercent(45); 
                 zaehler++;
+                x++;
                 document.add(bild2);
             }
             //InputStream in = saw.getSchueler().getBild().getBinaryStream();  
@@ -79,18 +79,24 @@ public class PDF_Generator {
             //document.add(bild);
             
             //Image image = Image.getInstance(in);
-            zaehler = 0;
-            while(zaehler < 3){
+            x = 0;
+            zaehler = i;
+            while(zaehler < i+5){
                 Blob imageBlob = (Blob) schuelerausweise.get(zaehler).getSchueler().getBild(); 
                 byte[] imageBytes = imageBlob.getBytes(1, (int) imageBlob.length());
                 Image bild1 = Image.getInstance(imageBytes);
-                bild1.setAbsolutePosition(200,668-(zaehler*150));//scaleAbsolute(300,300);
+                bild1.setAbsolutePosition(200,668-(x*150));//scaleAbsolute(300,300);
                 bild1.scalePercent(34);
                 document.add(bild1);
+                x++;
                 zaehler++;
             }
             document.close();
             file.close();
+            if(schuelerausweise.size()-i-2 < 5){
+                break;
+            }
+            
             } catch (DocumentException | IOException e) {
                 e.printStackTrace();
             }    
