@@ -49,9 +49,6 @@ public class PDF_Generator {
                     schuelerausweise.get(i+4).getSchuelerDaten() +"</html>";
             
         
-            //for(Schuelerausweis saw : schuelerausweise)  {
-            //String schuelerdaten = saw.getSchuelerDaten();
-            //System.out.println(schuelerdaten);
             try {
             String name = pfad + "/schuelerausweis" + (i+1) + "-" + ((i+5)) + ".pdf";
             
@@ -61,7 +58,7 @@ public class PDF_Generator {
             document.open();
             StringReader is = new StringReader(schuelerdaten);
             XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
-            //Image bild = PngImage.getImage("Schuelerausweisdesign.png");
+
             int zaehler = i;
             int x = 0;
             while(zaehler < i+5)
@@ -73,12 +70,6 @@ public class PDF_Generator {
                 x++;
                 document.add(bild2);
             }
-            //InputStream in = saw.getSchueler().getBild().getBinaryStream();  
-            
-            //Image image = ImageIO.read(in).getScaledInstance(0, 0, 0);
-            //document.add(bild);
-            
-            //Image image = Image.getInstance(in);
             x = 0;
             zaehler = i;
             while(zaehler < i+5){
@@ -102,45 +93,5 @@ public class PDF_Generator {
             }    
             }
         }
-        //}        
-        
-        
-        
-//        for(Schuelerausweis saw : schuelerausweise)  {
-//            String schuelerdaten = saw.getSchuelerDaten();
-//            //System.out.println(schuelerdaten);
-//            try {
-//            String name = pfad + "/schuelerausweis" + saw.getSchueler().getName() + ".pdf";
-//            OutputStream file = new FileOutputStream(new File(name));
-//            Document document = new Document();
-//            PdfWriter writer = PdfWriter.getInstance(document, file);
-//            document.open();
-//            StringReader is = new StringReader(schuelerdaten);
-//            XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
-//            //Image bild = PngImage.getImage("Schuelerausweisdesign.png");
-//            Image bild2 = PngImage.getImage("src/schuelerausweisgeneratorkl/atiw-bk_150x60.png");
-//            bild2.setAbsolutePosition(190, 780);
-//            bild2.scalePercent(45); 
-//            //InputStream in = saw.getSchueler().getBild().getBinaryStream();  
-//            
-//            //Image image = ImageIO.read(in).getScaledInstance(0, 0, 0);
-//            //document.add(bild);
-//            
-//            //Image image = Image.getInstance(in);
-//            
-//            Blob imageBlob = (Blob) saw.getSchueler().getBild(); 
-//            byte[] imageBytes = imageBlob.getBytes(1, (int) imageBlob.length());
-//            Image bild1 = Image.getInstance(imageBytes);
-//            bild1.setAbsolutePosition(200,668);//scaleAbsolute(300,300);
-//            bild1.scalePercent(34);
-//
-//            document.add(bild2);
-//            document.add(bild1);
-//            document.close();
-//            file.close();
-//            } catch (DocumentException | IOException e) {
-//                e.printStackTrace();
-//            }    
-//        }
     }
 }
