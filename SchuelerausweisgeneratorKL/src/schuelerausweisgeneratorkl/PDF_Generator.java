@@ -40,41 +40,58 @@ public class PDF_Generator {
     }
     
     public void erzeugePDF(ArrayList<Schuelerausweis> schuelerausweise, String pfad) throws SQLException{
-        for(Schuelerausweis saw : schuelerausweise)   {
-            String schuelerdaten = saw.getSchuelerDaten();
-            //System.out.println(schuelerdaten);
+        String schuelerdaten = "";
+        for(int i = 0; i < schuelerausweise.size(); i+=5){
+            if(i%5 == 0){
+            
+            schuelerdaten = "<html>" + schuelerausweise.get(i).getSchuelerDaten()+"\n" + schuelerausweise.get(i+1).getSchuelerDaten() +"\n" + 
+                    schuelerausweise.get(i+2).getSchuelerDaten()+"\n" + schuelerausweise.get(i+3).getSchuelerDaten()+"\n" + 
+                    schuelerausweise.get(i+4).getSchuelerDaten() +"</html>";
+            
+        
             try {
-            String name = pfad + "/schuelerausweis" + saw.getSchueler().getName() + ".pdf";
+            String name = pfad + "/schuelerausweis" + (i+1) + "-" + ((i+5)) + ".pdf";
+            
             OutputStream file = new FileOutputStream(new File(name));
             Document document = new Document();
             PdfWriter writer = PdfWriter.getInstance(document, file);
             document.open();
             StringReader is = new StringReader(schuelerdaten);
             XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
-            //Image bild = PngImage.getImage("Schuelerausweisdesign.png");
-            Image bild2 = PngImage.getImage("src/schuelerausweisgeneratorkl/atiw-bk_150x60.png");
-            bild2.setAbsolutePosition(190, 780);
-            bild2.scalePercent(45); 
-            //InputStream in = saw.getSchueler().getBild().getBinaryStream();  
-            
-            //Image image = ImageIO.read(in).getScaledInstance(0, 0, 0);
-            //document.add(bild);
-            
-            //Image image = Image.getInstance(in);
-            
-            Blob imageBlob = (Blob) saw.getSchueler().getBild(); 
-            byte[] imageBytes = imageBlob.getBytes(1, (int) imageBlob.length());
-            Image bild1 = Image.getInstance(imageBytes);
-            bild1.setAbsolutePosition(200,668);//scaleAbsolute(300,300);
-            bild1.scalePercent(34);
 
-            document.add(bild2);
-            document.add(bild1);
+            int zaehler = i;
+            int x = 0;
+            while(zaehler < i+5)
+            {
+                Image bild2 = PngImage.getImage("src/schuelerausweisgeneratorkl/atiw-bk_150x60.png");
+                bild2.setAbsolutePosition(190, 780-(x*150));
+                bild2.scalePercent(45); 
+                zaehler++;
+                x++;
+                document.add(bild2);
+            }
+            x = 0;
+            zaehler = i;
+            while(zaehler < i+5){
+                Blob imageBlob = (Blob) schuelerausweise.get(zaehler).getSchueler().getBild(); 
+                byte[] imageBytes = imageBlob.getBytes(1, (int) imageBlob.length());
+                Image bild1 = Image.getInstance(imageBytes);
+                bild1.setAbsolutePosition(200,668-(x*150));//scaleAbsolute(300,300);
+                bild1.scalePercent(34);
+                document.add(bild1);
+                x++;
+                zaehler++;
+            }
             document.close();
             file.close();
+            if(schuelerausweise.size()-i-2 < 5){
+                break;
+            }
+            
             } catch (DocumentException | IOException e) {
                 e.printStackTrace();
             }    
+            }
         }
     }
 }

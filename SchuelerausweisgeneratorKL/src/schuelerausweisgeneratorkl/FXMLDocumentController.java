@@ -152,6 +152,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void btnImpressumClick(ActionEvent event) {
+        Impressum impress = new Impressum();
     }
 
     @FXML

@@ -17,7 +17,7 @@
    <top>
       <AnchorPane prefHeight="94.0" prefWidth="806.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnPDF" alignment="CENTER" layoutX="127.0" layoutY="54.0" mnemonicParsing="false" onAction="#btnPDFClick" text="PDF speichern" textAlignment="CENTER">
+            <Button fx:id="btnPDF" alignment="CENTER" layoutX="127.0" layoutY="54.0" mnemonicParsing="false" onAction="#btnPDFClick" text="alle in PDF speichern" textAlignment="CENTER">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -37,7 +37,7 @@
                   <Insets />
                </opaqueInsets>
             </ComboBox>
-            <Button fx:id="btnImp" alignment="CENTER" layoutX="251.0" layoutY="54.0" mnemonicParsing="false" onAction="#btnImpressumClick" text="Impressum" />
+            <Button fx:id="btnImp" alignment="CENTER" layoutX="285.0" layoutY="54.0" mnemonicParsing="false" onAction="#btnImpressumClick" text="Impressum" />
          </children>
       </AnchorPane>
    </top>
