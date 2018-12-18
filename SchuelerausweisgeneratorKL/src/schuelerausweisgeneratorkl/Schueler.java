@@ -9,7 +9,7 @@ import java.sql.Blob;
 
 /**
  *
- * @author jonas.klocke
+ * @author jonas.klocke, jonas.linde
  */
 public class Schueler {
     private String name;

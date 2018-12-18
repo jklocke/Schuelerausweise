@@ -11,6 +11,7 @@ import javafx.scene.control.Dialog;
 
 /**
  * Impressum
+ * @author: jonas.klocke, jonas.linde
  */
 public class Impressum extends Dialog {
 

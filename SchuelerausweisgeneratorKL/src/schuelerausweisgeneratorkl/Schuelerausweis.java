@@ -7,7 +7,7 @@ package schuelerausweisgeneratorkl;
 
 /**
  * @titel Diese Klasse wird zur Erstellung eines Schülerausweises, eines Schülers verwendet.
- * @author jonas.klocke
+ * @author jonas.klocke, jonas.linde
  */
 public class Schuelerausweis {
     private Schueler schueler;
@@ -50,7 +50,24 @@ public class Schuelerausweis {
     }
     
     private void erstelleSchuelerausweis(String[] htmlSplitParts){
-        schuelerDaten = htmlSplitParts[0] + schueler.getVname() + htmlSplitParts[1] + schueler.getName() + htmlSplitParts[2] + schueler.getGebDatum()
-                + htmlSplitParts[3] + schueler.getPlz() + " " + schueler.getOrt() + htmlSplitParts[4] + schueler.getStrasse() + htmlSplitParts[5] + schueler.getAbschlussdatum() + htmlSplitParts[6];
+        String vorname = schueler.getVname();
+        if(vorname.length() > 30){
+            vorname = vorname.substring(0, 29);
+        }
+        String nachname = schueler.getName();
+        if(schueler.getOrt().length() > 30){
+            nachname = nachname.substring(0, 29);
+        }
+        String ort = schueler.getOrt();
+        if(ort.length() > 24){
+            ort = ort.substring(0, 23);
+        }
+        String str = schueler.getStrasse();
+        if(str.length() > 30){
+            str = str.substring(0, 29);
+        }
+        
+        schuelerDaten = htmlSplitParts[0] + vorname + htmlSplitParts[1] + nachname + htmlSplitParts[2] + schueler.getGebDatum()
+                + htmlSplitParts[3] + schueler.getPlz() + " " + ort + htmlSplitParts[4] + str + htmlSplitParts[5] + schueler.getAbschlussdatum() + htmlSplitParts[6];
     }
 }

@@ -5,24 +5,15 @@
  */
 package schuelerausweisgeneratorkl;
 
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
-import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 
 /**
  *
- * @author jonas.klocke
+ * @author jonas.klocke, jonas.linde
  */
 public class SchuelerausweisgeneratorKL extends Application {
     int permission;
