@@ -9,7 +9,7 @@ package schuelerausweisgeneratorkl;
 
 /**
  *
- * @author jonas.klocke
+ * @author jonas.klocke, jonas.linde
  */
 public class Atiw {
     private String nameKurz;
