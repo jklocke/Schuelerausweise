@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author jonas.linde
+ * @author jonas.klocke, jonas.linde
  */
 public class DB_Verbindung {
     Connection datenbankverbindung;

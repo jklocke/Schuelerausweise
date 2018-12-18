@@ -7,7 +7,7 @@ package schuelerausweisgeneratorkl;
 
 /**
  *
- * @author jonas.linde
+ * @author jonas.klocke, jonas.linde
  */
 import javafx.application.Platform;
 import javafx.geometry.Insets;

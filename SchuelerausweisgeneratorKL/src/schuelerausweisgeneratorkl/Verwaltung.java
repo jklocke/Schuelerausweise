@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author jonas.klocke
+ * @author jonas.klocke, jonas.linde
  */
 public class Verwaltung {
     private ArrayList<String> klassennamen = new ArrayList<>();
