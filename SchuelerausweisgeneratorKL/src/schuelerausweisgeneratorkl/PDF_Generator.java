@@ -16,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.Console;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +25,7 @@ import java.io.StringReader;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.WritableImage;
 import javax.imageio.ImageIO;
@@ -39,16 +41,16 @@ public class PDF_Generator {
     public PDF_Generator() {
     }
     
-    public void erzeugePDF(ArrayList<Schuelerausweis> schuelerausweise, String pfad) throws SQLException{
+    public void erzeugePDF(ArrayList<Schuelerausweis> schuelerausweise, String pfad) throws SQLException, FileNotFoundException{
         String schuelerdaten = "";
+        String htmlRueckseite = new Scanner(new File("schuelerausweisrueckseite.html")).useDelimiter("\\Z").next();
         for(int i = 0; i < schuelerausweise.size(); i+=5){
             if(i%5 == 0){
-            
-            schuelerdaten = "<html>" + schuelerausweise.get(i).getSchuelerDaten()+"\n" + schuelerausweise.get(i+1).getSchuelerDaten() +"\n" + 
+            schuelerdaten = "<html>" + htmlRueckseite + htmlRueckseite + htmlRueckseite + htmlRueckseite + htmlRueckseite + "<div>&nbsp;</div>" +
+                    schuelerausweise.get(i).getSchuelerDaten()+"\n" + schuelerausweise.get(i+1).getSchuelerDaten() +"\n" + 
                     schuelerausweise.get(i+2).getSchuelerDaten()+"\n" + schuelerausweise.get(i+3).getSchuelerDaten()+"\n" + 
-                    schuelerausweise.get(i+4).getSchuelerDaten() +"</html>";
-            
-        
+                    schuelerausweise.get(i+4).getSchuelerDaten() + 
+                     "</html>";
             try {
             String name = pfad + "/schuelerausweis" + (i+1) + "-" + ((i+5)) + ".pdf";
             
